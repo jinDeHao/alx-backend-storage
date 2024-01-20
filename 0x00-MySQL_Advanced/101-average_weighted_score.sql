@@ -1,37 +1,30 @@
 -- Average weighted score 
 -- SQL script that creates a stored procedure ComputeAverageWeightedScoreForUsers
+
 DELIMITER //
+
+CREATE FUNCTION GetAverage(user_id INT)
+RETURNS FLOAT
+DETERMINISTIC
+BEGIN
+    RETURN (SELECT
+            SUM(corrections.score * projects.weight) / SUM(projects.weight)
+            FROM corrections
+            INNER JOIN projects
+            ON projects.id = corrections.project_id
+            WHERE corrections.user_id = user_id);
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+
+
 
 CREATE PROCEDURE ComputeAverageWeightedScoreForUsers ()
 BEGIN
-    -- Declare variables
-    DECLARE done BOOLEAN DEFAULT FALSE;
-    DECLARE average_score DECIMAL(10, 2);
-    DECLARE id INT;
-
-    -- Declare a cursor to iterate through rows
-    DECLARE userscursor CURSOR FOR
-        SELECT average_score, id FROM users;
-    DECLARE CONTINUE HANDLER FOR NOT FOUND
-        SET done = TRUE;
-    -- Open the cursor
-    OPEN userscursor;
-    my_loop: LOOP
-        -- Fetch the next row
-        FETCH userscursor INTO average_score, id;
-
-        -- Exit the loop if there are no more rows
-        IF done THEN
-            LEAVE my_loop;
-        END IF;
-
-        CALL ComputeAverageWeightedScoreForUser(id);
-        -- Perform actions for each row
-        -- Your custom logic here using col1_value and col2_value
-    END LOOP;
-
-    -- Close the cursor
-    CLOSE userscursor;
+    UPDATE users SET average_score = (SELECT GetAverage(id)); 
 END //
 
 DELIMITER ;
