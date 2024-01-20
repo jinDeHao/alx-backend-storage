@@ -1,3 +1,5 @@
+-- Safe divide 
+-- SQL script that creates a function SafeDiv
 DELIMITER //
 
 CREATE FUNCTION SafeDiv(a INT, b INT)
