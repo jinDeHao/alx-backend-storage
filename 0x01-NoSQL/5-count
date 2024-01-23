@@ -1,1 +1,2 @@
-#!/usr/bin/bash
+// script that count number of documents
+db.school.find().count()
