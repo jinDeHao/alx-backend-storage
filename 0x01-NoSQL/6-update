@@ -1,4 +1,4 @@
 // script that count number of documents
 db.school.find({name:"Holberton school"}).update(
-    {address= '972 Mission street'},
+    {address: `972 Mission street`},
 )
