@@ -1,1 +1,2 @@
-#!/usr/bin/bash
+// lists all documents in the collection
+db.school.find()

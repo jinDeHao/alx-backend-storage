@@ -1,1 +1,2 @@
-#!/usr/bin/bash
+// use my_db
+use my_db
