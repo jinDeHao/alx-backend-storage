@@ -10,12 +10,12 @@ if __name__ == "__main__":
     mydb = myclient.logs
     mycol = mydb.nginx
 
-    print("{} logs".format(len(mycol.find())))
+    print("{} logs".format(mycol.count_documents({})))
     print("Methods:")
     methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
 
     for m in methods:
-        print("\tmethod {}: {}".format(m, len(mycol.find({"method": m}))))
+        print("\tmethod {}: {}".format(m, mycol.count_documents({"method": m})))
 
     print("{} status check".format(
-        len(mycol.find({"method": "GET", "path": "/status"}))))
+        mycol.count_documents({"method": "GET", "path": "/status"})))
