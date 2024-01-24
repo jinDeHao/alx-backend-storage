@@ -24,15 +24,18 @@ if __name__ == "__main__":
     print("IPs:")
 
     mydocs = mycol.find()
-    counting_dict = sorted(
-        Counter(one['ip'] for one in mydocs).items(),
-        key=lambda one: one[1],
-        reverse=True
-    )
-    i = 1
+    counting_dict = {}
+    for key in mydocs:
+        ip = key["ip"]
+        if ip in counting_dict:
+            continue
+        counting_dict[ip] = mycol.count_documents({"ip": ip})
 
-    for ip in counting_dict:
-        print(f"\t{ip}: {counting_dict[ip]}")
-        if i == 10:
-            break
-        i += 1
+    val_to_key = {}
+    for key, val in counting_dict.items():
+        val_to_key[val] = key
+    myKeys = list(val_to_key.keys())
+    myKeys.sort()
+
+    for i in range(10):
+        print(f"\t{val_to_key[myKeys[i]]}: {myKeys[i]}")
