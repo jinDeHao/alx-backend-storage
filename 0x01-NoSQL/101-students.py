@@ -5,4 +5,11 @@ import pymongo
 
 def top_students(mongo_collection):
     """averageScore"""
-    return mongo_collection.find().sort("averageScore", -1)
+    stus = mongo_collection.find()
+    average = {}
+    for s in stus:
+        sum = 0
+        for t in s["topics"]:
+            sum += t["score"]
+        average[s["name"]] = sum / len(s["topics"])
+    return average
