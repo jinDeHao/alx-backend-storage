@@ -35,7 +35,7 @@ if __name__ == "__main__":
     for key, val in counting_dict.items():
         val_to_key[val] = key
     myKeys = list(val_to_key.keys())
-    myKeys.sort()
+    myKeys.sort(reverse=True)
 
     for i in range(10):
         print(f"\t{val_to_key[myKeys[i]]}: {myKeys[i]}")
