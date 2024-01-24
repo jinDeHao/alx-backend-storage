@@ -11,7 +11,7 @@ if __name__ == "__main__":
     mycol = mydb.nginx
 
     print("{} logs".format(len(mycol.find())))
-    print("Methods:".format(len(mycol.find())))
+    print("Methods:")
     methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
 
     for m in methods:
