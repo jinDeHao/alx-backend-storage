@@ -5,4 +5,4 @@ import pymongo
 
 def top_students(mongo_collection):
     """averageScore"""
-    return mongo_collection.find().sort("averageScore")
+    return mongo_collection.find().sort("averageScore", -1)
